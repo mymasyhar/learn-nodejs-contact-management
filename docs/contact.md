@@ -17,7 +17,7 @@ Request Body :
   "firstName": "Masyhar",
   "lastName": "M",
   "email": "masyhar@example.com",
-  "phone": "801234567890",
+  "phone": "801234567890"
 }
 ```
 
@@ -30,18 +30,24 @@ Response Body Success :
     "firstName": "Masyhar",
     "lastName": "M",
     "email": "masyhar@example.com",
-    "phone": "801234567890",
+    "phone": "801234567890"
   }
 }
 ```
 
-Response Body Failed :
+Response Body Error :
+
+```json
+{
+  "errors": "email is not valid format"
+}
+```
 
 #
 
 ## Update Contact API
 
-Endpoint : POST /api/contacts
+Endpoint : PUT /api/contacts/:id
 
 Headers :
 
@@ -50,24 +56,41 @@ Headers :
 Request Body :
 
 ```json
-
+{
+  "firstName": "Masyhar",
+  "lastName": "M",
+  "email": "masyhar@example.com",
+  "phone": "801234567890"
+}
 ```
 
 Response Body Success :
 
 ```json
 {
-
+  "data": {
+    "id": 1,
+    "firstName": "Masyhar",
+    "lastName": "Muharam",
+    "email": "masyhar@example.com",
+    "phone": "801234567890"
+  }
 }
 ```
 
-Response Body Failed :
+Response Body Error :
+
+```json
+{
+  "errors": "email is not valid format"
+}
+```
 
 #
 
 ## Get Contact API
 
-Endpoint : POST /api/contacts
+Endpoint : GET /api/contacts/:id
 
 Headers :
 
@@ -83,21 +106,41 @@ Response Body Success :
 
 ```json
 {
-
+  "data": {
+    "id": 1,
+    "firstName": "Masyhar",
+    "lastName": "Muharam",
+    "email": "masyhar@example.com",
+    "phone": "801234567890"
+  }
 }
 ```
 
-Response Body Failed :
+Response Body Error :
+
+```json
+{
+  "errors": "Contact not found"
+}
+```
 
 #
 
 ## Search Contact API
 
-Endpoint : POST /api/contacts
+Endpoint : GET /api/contacts
 
 Headers :
 
 - Authorization : token
+
+Query Params :
+
+- name: search by firstName or lastName, using like //optional
+- email: search by email, using like //optional
+- phone: search by phone, using like //optional
+- page: number of page, default 1
+- size: size per page, default 10
 
 Request Body :
 
@@ -109,17 +152,44 @@ Response Body Success :
 
 ```json
 {
-
+  "data": [
+    {
+      "id": 1,
+      "firstName": "Masyhar",
+      "lastName": "Muharam",
+      "email": "masyhar@example.com",
+      "phone": "801234567890"
+    },
+    {
+      "id": 1,
+      "firstName": "Masyhar",
+      "lastName": "Muharam",
+      "email": "masyhar@example.com",
+      "phone": "801234567890"
+    },
+    {
+      "id": 1,
+      "firstName": "Masyhar",
+      "lastName": "Muharam",
+      "email": "masyhar@example.com",
+      "phone": "801234567890"
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "totalPage": 3,
+    "totalRecord": 30
+  }
 }
 ```
 
-Response Body Failed :
+Response Body Error :
 
 #
 
 ## Remove Contact API
 
-Endpoint : POST /api/contacts
+Endpoint : DELETE /api/contacts
 
 Headers :
 
@@ -135,8 +205,14 @@ Response Body Success :
 
 ```json
 {
-
+  "data": "OK"
 }
 ```
 
-Response Body Failed :
+Response Body Error :
+
+```json
+{
+  "errors": "Contact is not found"
+}
+```
